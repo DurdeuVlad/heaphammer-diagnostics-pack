@@ -2,6 +2,49 @@
 
 Durable decision log. Newest first. Status values: `decided`, `open`, `superseded`.
 
+## Implementation addendum — 2026-09-09 (M2-2: re-source all six mods to CurseForge)
+
+- HeapHammer was approved on CurseForge
+  (https://www.curseforge.com/minecraft/mc-mods/heaphammer) after M1, which
+  unblocks a CurseForge re-pin. All six mods (HeapHammer, Spark, Lithium,
+  FerriteCore, Krypton, Fabric API) were re-pinned from their original
+  sources (HeapHammer: GitHub release; the other five: Modrinth) to
+  CurseForge using `packwiz curseforge add <slug>`. Every `mods/*.pw.toml`
+  now carries `[update.curseforge]` with a project-id and file-id.
+- **Why:** `packwiz curseforge export` only emits CurseForge project/file
+  IDs for mods whose `.pw.toml` carries `[update.curseforge]` metadata;
+  every other mod is bundled as a JAR override, and CurseForge moderation
+  rejects packs that bundle mods which are themselves available on
+  CurseForge as overrides. With the previous sources (5 Modrinth + 1
+  GitHub), the CurseForge export could not pass moderation.
+- **Open decision resolved (option a chosen):** issue #2 posed a choice
+  between (a) re-pinning all six mods to CurseForge as the single source,
+  or (b) keeping Modrinth as the download source for the five and adding a
+  parallel `[update.curseforge]` section to each (dual-source). Option (a)
+  was chosen: a single CurseForge source per mod. Rationale: packwiz does
+  not support dual `[update.modrinth]` + `[update.curseforge]` sections in
+  one `.pw.toml` cleanly, and D-005 mandates a single source of truth.
+  Option (a) keeps the CurseForge export clean (all six mods referenced by
+  project/file ID, zero mod JARs in `overrides/`) at the cost of the
+  Modrinth export bundling all six mods as JARs (Modrinth accepts this; the
+  pack author's license responsibility is already covered by M2-1's
+  LGPL-3.0-only + per-mod licenses). This tradeoff is acceptable because
+  the CurseForge moderation constraint is the binding one; Modrinth has no
+  equivalent "must reference by ID" rule.
+- **HeapHammer jar filename:** the CurseForge file is named
+  `heaphammer-1.0.0-MC1.21.1-Fabric-NeoForge.jar` (a Fabric+NeoForge
+  universal build) rather than the GitHub release's Fabric-only
+  `heaphammer-1.21.1-1.0.0.jar`. Both are the same 1.0.0 / MC 1.21.1
+  release; the version target (Fabric 1.21.1, Loader 0.19.5) is unchanged.
+- **No mod substituted or removed:** the five requested mods (HeapHammer,
+  Spark, Lithium, FerriteCore, Krypton) and the Fabric API platform
+  dependency are all still present at the same versions. No requested mod
+  was swapped for an alternative (D-003 optimizer set intact) and the
+  version target is unchanged (D-004).
+- **Open follow-up unchanged:** the open "swap HeapHammer to its Modrinth
+  source once approved" follow-up below remains open and is not closed by
+  this re-sourcing — HeapHammer is still not approved on Modrinth.
+
 ## Implementation addendum — 2026-09-09 (Fabric runtime compatibility)
 
 - The first disposable-server boot failed before any mod could load because

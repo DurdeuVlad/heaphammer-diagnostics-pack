@@ -1,6 +1,7 @@
 # Milestones.md
 
-Status: M1 complete; M2 has not started.
+Status: M1 complete; M2 in progress (mods re-sourced to CurseForge, license
+added; export artifacts and platform submission pending).
 
 ## M1: v0.1.0 — Fabric 1.21.1 pack builds and installs
 
@@ -37,7 +38,8 @@ Status: M1 complete; M2 has not started.
   (observed with the HeapHammer mod submissions).
 - **Evidence of done:** live, approved project pages on both platforms.
 - **Owner:** dwurdy.
-- **Status:** not started.
+- **Status:** in progress (mods re-sourced to CurseForge 2026-09-09; export
+  artifacts and platform submission pending).
 
 ## Deferred (explicitly out of current milestones)
 

@@ -14,11 +14,11 @@ chosen, and [Milestones.md](Milestones.md) for what "done" looks like.
 
 | Mod | Role |
 |---|---|
-| [HeapHammer](https://github.com/DurdeuVlad/heaphammer) | leak/regression detector — the reason this pack exists |
-| [Spark](https://modrinth.com/mod/spark) | profiler — CPU/tick/heap visibility during a HeapHammer run |
-| [Lithium](https://modrinth.com/mod/lithium) | optimizer — vanilla logic rewrite, no behavior change |
-| [FerriteCore](https://modrinth.com/mod/ferrite-core) | optimizer — memory dedup |
-| [Krypton](https://modrinth.com/mod/krypton) | optimizer — network stack |
+| [HeapHammer](https://www.curseforge.com/minecraft/mc-mods/heaphammer) | leak/regression detector — the reason this pack exists |
+| [Spark](https://www.curseforge.com/minecraft/mc-mods/spark) | profiler — CPU/tick/heap visibility during a HeapHammer run |
+| [Lithium](https://www.curseforge.com/minecraft/mc-mods/lithium) | optimizer — vanilla logic rewrite, no behavior change |
+| [FerriteCore](https://www.curseforge.com/minecraft/mc-mods/ferrite-core) | optimizer — memory dedup |
+| [Krypton](https://www.curseforge.com/minecraft/mc-mods/krypton) | optimizer — network stack |
 
 Target: **Fabric 1.21.1** only, for now (see Decision.md D-004). The pack
 pins Fabric Loader 0.19.5 and Fabric API as required platform dependencies;
@@ -50,19 +50,23 @@ committed in `index.toml` and `mods/*.pw.toml`. To recreate or update them
 from the repo root:
 
 ```bash
-# install packwiz, then from this directory. HeapHammer is sourced from its
-# GitHub release because no Modrinth project exists for the published jar:
-packwiz github add DurdeuVlad/heaphammer --regex 'heaphammer-1\.21\.1-1\.0\.0\.jar'
-packwiz modrinth add spark
-packwiz modrinth add lithium
-packwiz modrinth add ferrite-core
-packwiz modrinth add krypton
-packwiz modrinth add fabric-api
+# install packwiz, then from this directory. All six pins are CurseForge-sourced
+# so the CurseForge export references every mod by project/file ID (CurseForge
+# moderation rejects packs that bundle CurseForge-available mods as overrides).
+# The resolved CurseForge project/file IDs are recorded in each mods/*.pw.toml.
+packwiz curseforge add heaphammer
+packwiz curseforge add spark
+packwiz curseforge add lithium
+packwiz curseforge add ferritecore
+packwiz curseforge add krypton
+packwiz curseforge add fabric-api
 ```
 
 These commands generate/update `index.toml` and per-mod `.pw.toml` files with
 real, verifiable hashes and version pins — nothing here fabricates those by
-hand.
+hand. HeapHammer is not yet approved on Modrinth (see Decision.md's open
+follow-up); the CurseForge pin is the single source for both exports until
+that lands.
 
 ## Status
 

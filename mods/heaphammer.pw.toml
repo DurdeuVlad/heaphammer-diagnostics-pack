@@ -1,15 +1,13 @@
-name = "heaphammer"
-filename = "heaphammer-1.21.1-1.0.0.jar"
+name = "HeapHammer"
+filename = "heaphammer-1.0.0-MC1.21.1-Fabric-NeoForge.jar"
 side = "both"
 
 [download]
-url = "https://github.com/DurdeuVlad/heaphammer/releases/download/v1.0.0/heaphammer-1.21.1-1.0.0.jar"
-hash-format = "sha256"
-hash = "7e27288d087bfcf15fc08893252ee3874c700ecbb00fdcc4e5b67db664dc212b"
+hash-format = "sha1"
+hash = "c0b1bd517196707833c20080552e7b3926a51d1d"
+mode = "metadata:curseforge"
 
 [update]
-[update.github]
-branch = "master"
-regex = "heaphammer-1\\.21\\.1-1\\.0\\.0\\.jar"
-slug = "DurdeuVlad/heaphammer"
-tag = "v1.0.0"
+[update.curseforge]
+file-id = 8840111
+project-id = 1687734
