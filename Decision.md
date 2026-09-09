@@ -2,6 +2,18 @@
 
 Durable decision log. Newest first. Status values: `decided`, `open`, `superseded`.
 
+## Implementation addendum — 2026-09-09 (Fabric runtime compatibility)
+
+- The first disposable-server boot failed before any mod could load because
+  the scaffold's Fabric Loader 0.16.9 is below HeapHammer 1.0.0's declared
+  minimum of 0.19.5. The same log showed that HeapHammer and Spark require
+  Fabric API modules that were not present in the five standalone mod pins.
+- The pack therefore targets Fabric Loader 0.19.5 and pins Fabric API
+  0.116.17+1.21.1 as a platform dependency. Fabric API is not a sixth
+  user-facing feature mod and no requested mod was substituted or removed;
+  this is the minimum dependency correction required for the declared five
+  mods to load on Fabric 1.21.1.
+
 ## Implementation addendum — 2026-09-09
 
 - The live Modrinth API and packwiz both returned no project for `heaphammer`.

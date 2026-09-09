@@ -14,7 +14,7 @@ hash = "960192d5480d525bd2e483329eae7b4b10e81cc067f7fc67509d47c5382ff092"
 
 [[files]]
 file = "Decision.md"
-hash = "eec76eb32440fb7e3acb71272e7e0d3d20e77dc7e62a37ece40330100ea5eb08"
+hash = "885c02e6ff5a782adc2d229af934e10599bab6e9230aae2f990cacd85bb9e76a"
 
 [[files]]
 file = "Milestones.md"
@@ -27,6 +27,11 @@ hash = "e83b5d00032a2c624d17a7ea3c805c69db429df0b018139f8795120e4397c690"
 [[files]]
 file = "Testing.md"
 hash = "6f93fef9939adf4756e465c8bf0bf9b699a1d8d8f0539e4c1b2f7034016a3b66"
+
+[[files]]
+file = "mods/fabric-api.pw.toml"
+hash = "9645e76b2915aa43b0918e1ef20e1c01b64ba9073e35c8bcd70cf34af8ab604e"
+metafile = true
 
 [[files]]
 file = "mods/ferrite-core.pw.toml"
