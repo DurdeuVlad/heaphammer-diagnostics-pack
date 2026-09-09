@@ -19,43 +19,65 @@ command and read its output; do not infer a PASS from reading the config.
 - A Java 21 runtime available (Minecraft 1.21.1 requires Java 21) to run a
   throwaway Fabric server for verification — this does not need to be a
   production server, a local disposable install is enough.
-- Network access to Modrinth (packwiz resolves mods from there).
+- Network access to CurseForge (packwiz resolves mods from there). A
+  CurseForge API key may be required for some `packwiz curseforge` operations
+  per the packwiz docs; the add commands below were verified to resolve
+  without one for these six projects.
 
 ## Step 1 — Mod resolution
 
 Run, from the repo root:
 
 ```bash
-packwiz github add DurdeuVlad/heaphammer --regex 'heaphammer-1\.21\.1-1\.0\.0\.jar'
-packwiz modrinth add spark
-packwiz modrinth add lithium
-packwiz modrinth add ferrite-core
-packwiz modrinth add krypton
+packwiz curseforge add heaphammer
+packwiz curseforge add spark
+packwiz curseforge add lithium
+packwiz curseforge add ferritecore
+packwiz curseforge add krypton
+packwiz curseforge add fabric-api
 ```
 
 **Pass condition:** all five requested-mod commands exit 0 and `index.toml`
 plus five `mods/*.pw.toml` files are created/updated with real hashes. Any
 required platform dependency is pinned as an additional metadata file.
 
-**Observed implementation notes (2026-09-09):** The existing scaffold did
+**Observed implementation notes (2026-09-09, M1):** The existing scaffold did
 not contain `index.toml`; the current packwiz build also refuses `modrinth
 add` and `refresh` until that index exists, so an empty sha256 index was
 initialized before the add commands. `packwiz modrinth add heaphammer`
 returned `no projects found`; the Modrinth API also returned 404 for
 `heaphammer` and no search hits. The exact Fabric 1.21.1 jar was therefore
-added with `packwiz github add DurdeuVlad/heaphammer` using the release asset
-regex above. The four Modrinth commands exited 0; `ferrite-core` resolved as
+added with `packwiz github add DurdeuVlad/heaphammer` using a release asset
+regex. The four Modrinth commands exited 0; `ferrite-core` resolved as
 written (the downloaded filename is `ferritecore-7.0.3-fabric.jar`). The first
 boot also proved that the published HeapHammer jar requires Fabric API, so
 `packwiz modrinth add fabric-api` was run and resolved to
 `fabric-api-0.116.17+1.21.1.jar` as a platform dependency.
 
+**Observed implementation notes (2026-09-09, M2-2 re-sourcing):** HeapHammer
+was subsequently approved on CurseForge
+(https://www.curseforge.com/minecraft/mc-mods/heaphammer), unblocking a
+CurseForge re-pin. All six mods were re-pinned from their original sources
+(HeapHammer: GitHub; the other five: Modrinth) to CurseForge using the
+commands above, so `packwiz curseforge export` references every mod by
+project/file ID instead of bundling it as a JAR override (CurseForge
+moderation rejects packs that bundle CurseForge-available mods as
+overrides). The CurseForge file for HeapHammer is named
+`heaphammer-1.0.0-MC1.21.1-Fabric-NeoForge.jar` (a Fabric+NeoForge universal
+build) rather than the GitHub release's Fabric-only
+`heaphammer-1.21.1-1.0.0.jar`; both are the same 1.0.0 / MC 1.21.1 release,
+the version target is unchanged, and no requested mod was substituted or
+removed. The re-sourcing approach (single CurseForge source for both exports,
+rather than dual CurseForge+Modrinth update sections) and its tradeoff
+(Modrinth export bundles the five CurseForge-sourced mods as JARs, losing
+Modrinth update-tracking for them) is recorded in Decision.md. The open
+Decision.md follow-up to re-pin HeapHammer to Modrinth once approved remains
+open and is not closed by this re-sourcing.
+
 **Fail condition and what to do:** if a slug in README.md doesn't resolve
-(e.g. `ferrite-core` might actually be `ferritecore` on Modrinth, or a mod
-requires picking a specific game-version/loader match), that is expected —
-these slugs were not verified against the live Modrinth API when the docs
-were written. Correct the slug in both `README.md` and the command actually
-used, note the correction in [Decision.md](Decision.md) as a small addendum
+(e.g. `ferritecore` vs `ferrite-core` across platforms), that is expected —
+correct the slug in both `README.md` and the command actually used, note the
+correction in [Decision.md](Decision.md) as a small addendum
 (not a full D-entry — a one-line "corrected slug X to Y, source: packwiz
 output" is enough), and continue. Do not silently drop a mod because its
 slug didn't match on the first try.
