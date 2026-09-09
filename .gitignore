@@ -10,3 +10,4 @@ dist/
 .commit-msg.txt
 .packwizignore
 .verify/
+.scratch/

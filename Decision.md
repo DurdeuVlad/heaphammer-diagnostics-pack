@@ -209,12 +209,34 @@ Durable decision log. Newest first. Status values: `decided`, `open`, `supersede
 - **Consequences:** none — this is the current, active direction.
 - **Revisit if:** not currently anticipated.
 
+## D-006: Pack license = LGPL-3.0-only (2026-09-09)
+
+- **Status:** decided.
+- **Decision:** The pack's own packwiz metadata (`pack.toml`) declares
+  `license = "LGPL-3.0-only"`, matching the sibling HeapHammer project's
+  posture.
+- **Rationale:** The pack is a thin wrapper of metadata over
+  independently-licensed mods. LGPL-3.0-only aligns with HeapHammer (the
+  primary mod this pack exists to distribute) and is accepted by both
+  CurseForge and Modrinth as a valid modpack license.
+- **Bundled mods retain their own licenses:** This license covers only
+  the pack composition and metadata (the `pack.toml`, `index.toml`, and
+  `mods/*.pw.toml` files). The bundled third-party mods are NOT
+  re-licensed by this pack:
+  - HeapHammer: LGPL-3.0
+  - Spark: Apache License 2.0
+  - Lithium: LGPL-3.0
+  - FerriteCore: LGPL-3.0
+  - Krypton: Apache License 2.0
+  - Fabric API: Apache 2.0
+- **Consequences:** both platforms accept the pack submission; the
+  `license` field is present in all 6 `pack.toml` files (1.16.5, 1.18.2,
+  1.19.2, 1.20.1, 1.21.1, 1.21.4).
+- **Revisit if:** the maintainer chooses a different license posture
+  for the pack metadata.
+
 ## Open questions (not yet decided)
 
-- Final license posture for the pack as a whole (HeapHammer itself is
-  LGPL-3.0; Spark, Lithium, FerriteCore, and Krypton each carry their own
-  licenses as bundled third-party mods — the pack's own packwiz metadata
-  license has not been chosen yet).
 - Whether this pack becomes eligible for/joins the CurseForge Server
   Affiliation Program (that program currently only supports Modpacks, not
   Mods — this pack being a modpack is what would make HeapHammer-adjacent

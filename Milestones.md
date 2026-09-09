@@ -1,8 +1,8 @@
 # Milestones.md
 
-Status: M1 complete; M3 complete (hash-consistency verified for all 6
-packs; server-boot verification pending for 5 new versions); M2 in
-progress (export artifacts pending for 6 packs).
+Status: M1 complete; M3 complete (all 6 packs boot-verified under Java 21,
+v0.1.0 tagged and released); M2 in progress (export artifacts produced
+for all 6 packs; CurseForge/Modrinth platform submission pending).
 
 ## M1: v0.1.0 — Fabric 1.21.1 pack builds and installs
 
@@ -39,9 +39,10 @@ progress (export artifacts pending for 6 packs).
   (observed with the HeapHammer mod submissions).
 - **Evidence of done:** live, approved project pages on both platforms.
 - **Owner:** dwurdy.
-- **Status:** in progress (mods re-sourced to CurseForge; 1.21.1 export
-  artifacts produced; 5 new version export artifacts and platform
-  submission pending).
+- **Status:** in progress (all 6 mods re-sourced to CurseForge; 12 export
+  artifacts produced and boot-verified for all 6 versions; repo public;
+  v0.1.0 GitHub release published; CurseForge/Modrinth platform
+  submission pending — see PUBLISH-PROMPT.md for browser handoff).
 
 ## M3: Multi-version expansion (1.16.5 – 1.21.4)
 
@@ -65,8 +66,10 @@ progress (export artifacts pending for 6 packs).
   [Testing.md](Testing.md#m3-multi-version-expansion--per-version-mod-matrix)
   for the per-version mod matrix and verification checklist.
 - **Owner:** dwurdy.
-- **Status:** complete (hash-consistency verified 2026-09-09; server-boot
-  verification for 5 new versions pending).
+- **Status:** complete (all 6 packs boot-verified under Java 21;
+  v0.1.0 tagged at commit `0f21d31` and released with 12 artifacts;
+  repo public at https://github.com/DurdeuVlad/heaphammer-diagnostics-pack;
+  release at https://github.com/DurdeuVlad/heaphammer-diagnostics-pack/releases/tag/v0.1.0).
 
 ## Deferred (explicitly out of current milestones)
 
