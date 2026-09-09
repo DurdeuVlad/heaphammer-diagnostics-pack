@@ -1,0 +1,9 @@
+# packwiz build output
+/.packwiz/
+/pack/
+*.mrpack
+/bundle.zip
+
+# OS / editor noise
+.DS_Store
+Thumbs.db
