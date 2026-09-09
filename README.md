@@ -20,7 +20,9 @@ chosen, and [Milestones.md](Milestones.md) for what "done" looks like.
 | [FerriteCore](https://modrinth.com/mod/ferrite-core) | optimizer — memory dedup |
 | [Krypton](https://modrinth.com/mod/krypton) | optimizer — network stack |
 
-Target: **Fabric 1.21.1** only, for now (see Decision.md D-004).
+Target: **Fabric 1.21.1** only, for now (see Decision.md D-004). The pack
+pins Fabric Loader 0.19.5 and Fabric API as required platform dependencies;
+Fabric API is not an additional user-facing feature mod.
 
 ## Soak-test workflow
 
@@ -43,8 +45,9 @@ This project uses [packwiz](https://packwiz.infra.link/) (`pack.toml` +
 `index.toml`, git-friendly TOML) as the single source that exports to both
 CurseForge and Modrinth formats.
 
-The five mod pins are committed in `index.toml` and `mods/*.pw.toml`. To
-recreate or update them from the repo root:
+The five requested mod pins and the required Fabric API platform pin are
+committed in `index.toml` and `mods/*.pw.toml`. To recreate or update them
+from the repo root:
 
 ```bash
 # install packwiz, then from this directory. HeapHammer is sourced from its
@@ -54,6 +57,7 @@ packwiz modrinth add spark
 packwiz modrinth add lithium
 packwiz modrinth add ferrite-core
 packwiz modrinth add krypton
+packwiz modrinth add fabric-api
 ```
 
 These commands generate/update `index.toml` and per-mod `.pw.toml` files with
@@ -62,6 +66,7 @@ hand.
 
 ## Status
 
-M1 implementation in progress: the five mods are pinned; server boot and the
-soak-test workflow are still being verified. See
+M1 complete: the five requested mods are pinned, the pack boots on a real
+Fabric 1.21.1 server, and the documented soak-test workflow produced both a
+HeapHammer verdict and a Spark profile. See
 [Milestones.md](Milestones.md#m1-v010--fabric-1211-pack-builds-and-installs).

@@ -143,5 +143,3 @@ Durable decision log. Newest first. Status values: `decided`, `open`, `supersede
   Affiliation Program (that program currently only supports Modpacks, not
   Mods — this pack being a modpack is what would make HeapHammer-adjacent
   affiliation possible, but no decision to opt in has been made).
-- Exact packwiz mod-source pins (CurseForge project IDs / Modrinth slugs and
-  versions) are not yet recorded — deferred to the build/scaffold step.

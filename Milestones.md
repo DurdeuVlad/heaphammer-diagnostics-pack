@@ -1,6 +1,6 @@
 # Milestones.md
 
-Status: draft — no milestone has started implementation yet.
+Status: M1 complete; M2 has not started.
 
 ## M1: v0.1.0 — Fabric 1.21.1 pack builds and installs
 
@@ -22,7 +22,7 @@ Status: draft — no milestone has started implementation yet.
   [Testing.md](Testing.md#m1-acceptance-checklist) for the exact checklist
   and commands that prove this.
 - **Owner:** dwurdy (sole maintainer).
-- **Status:** not started.
+- **Status:** complete (verified 2026-09-09; see Testing.md).
 
 ## M2: Publish to CurseForge and Modrinth
 

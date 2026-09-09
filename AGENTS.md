@@ -2,11 +2,13 @@
 
 Entry point for any AI agent (or human) picking up this repo cold.
 
-## Current status (as of this writing)
+## Current status (as of 2026-09-09)
 
-- Docs and packwiz boilerplate are committed. **Mods are NOT yet pinned**
-  (`index.toml` does not exist yet). **Nothing has been tested** — no pack
-  has ever been resolved, built, or booted on a real server.
+- **M1 is complete.** The five requested mods are pinned in `index.toml` and
+  `mods/*.pw.toml`, with Fabric API pinned as a required platform dependency.
+  A disposable Fabric 1.21.1 server booted cleanly and the documented
+  HeapHammer + Spark soak-test workflow produced a PASS verdict and profile
+  URL. M2 publication has not started.
 - Repo: https://github.com/DurdeuVlad/heaphammer-diagnostics-pack (private).
 - Sole maintainer: dwurdy (Vlad Durdeu).
 
@@ -30,9 +32,9 @@ Entry point for any AI agent (or human) picking up this repo cold.
 
 ## What you're being asked to do
 
-Implement M1: pin the 5 mods via packwiz, get the pack to boot a real Fabric
-1.21.1 server, and manually run the soak-test workflow end to end. Testing.md
-has the exact commands and pass conditions — follow it, don't reinvent it.
+M1 is complete. Any follow-up agent should use Testing.md as the empirical
+record and must not start M2 publication or the open HeapHammer Modrinth-source
+follow-up unless explicitly asked.
 
 ## Hard rules
 

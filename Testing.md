@@ -1,7 +1,8 @@
 # Testing.md
 
-Status: M1 implementation in progress. Step 1 has passed empirically; server
-boot and the soak-test workflow are not yet verified.
+Status: M1 complete (2026-09-09). Steps 1–3 passed empirically on a
+disposable Fabric 1.21.1 server; the final soak test produced both a
+HeapHammer verdict and a Spark profile URL.
 
 Test strategy for M1 in [Milestones.md](Milestones.md). This project has no
 application code to unit-test — "testing" here means proving the pack
@@ -32,8 +33,9 @@ packwiz modrinth add ferrite-core
 packwiz modrinth add krypton
 ```
 
-**Pass condition:** all five commands exit 0 and `index.toml` plus five
-`mods/*.pw.toml` files are created/updated with real hashes.
+**Pass condition:** all five requested-mod commands exit 0 and `index.toml`
+plus five `mods/*.pw.toml` files are created/updated with real hashes. Any
+required platform dependency is pinned as an additional metadata file.
 
 **Observed implementation notes (2026-09-09):** The existing scaffold did
 not contain `index.toml`; the current packwiz build also refuses `modrinth
@@ -43,7 +45,10 @@ returned `no projects found`; the Modrinth API also returned 404 for
 `heaphammer` and no search hits. The exact Fabric 1.21.1 jar was therefore
 added with `packwiz github add DurdeuVlad/heaphammer` using the release asset
 regex above. The four Modrinth commands exited 0; `ferrite-core` resolved as
-written (the downloaded filename is `ferritecore-7.0.3-fabric.jar`).
+written (the downloaded filename is `ferritecore-7.0.3-fabric.jar`). The first
+boot also proved that the published HeapHammer jar requires Fabric API, so
+`packwiz modrinth add fabric-api` was run and resolved to
+`fabric-api-0.116.17+1.21.1.jar` as a platform dependency.
 
 **Fail condition and what to do:** if a slug in README.md doesn't resolve
 (e.g. `ferrite-core` might actually be `ferritecore` on Modrinth, or a mod
@@ -59,16 +64,33 @@ slug didn't match on the first try.
 
 1. Serve the pack with `packwiz serve` and install it into the disposable
    server with `packwiz-installer-bootstrap` using the local `pack.toml` URL.
-   This is the standard packwiz server-install path selected for M1; record
-   the exact command and observed result below once done.
+   This is the standard packwiz server-install path selected for M1; the
+   exact commands and observed result are recorded below.
 2. Boot a vanilla Fabric 1.21.1 server with the resolved mods installed and
    `eula.txt` accepted.
 3. Watch the log to `Done (...)! For help, type "help"` with no mod-loading
    exceptions, no missing-dependency errors, and no crash.
 
-**Pass condition:** clean boot, server reaches the "Done" line, `/hh` and
-`/spark` commands are recognized (tab-complete or a plain `/hh` with no
-"unknown command" response confirms both mods loaded).
+**Pass condition:** clean boot, server reaches the "Done" line, and
+`/hh doctor` plus `/spark profiler start` are recognized and produce their
+respective mod output.
+
+**Observed implementation notes (2026-09-09):** The selected install path was:
+
+```text
+.\.packwiz-tools\bin\packwiz.exe serve --port 19090 --refresh=false
+java -jar ..\tools\packwiz-installer-bootstrap.jar -g -s server http://127.0.0.1:19090/pack.toml
+```
+
+The installer exited 0 and downloaded all five requested mod JARs plus Fabric
+API into `.m1-server/fresh-0195`. The first boot against the scaffold's
+Fabric Loader 0.16.9 failed with `Mod resolution failed`: HeapHammer required
+Fabric Loader `>=0.19.5` and Fabric API was missing. That exact failure is
+recorded in Decision.md; no requested mod was replaced. After pinning Loader
+0.19.5 and Fabric API, the clean boot log reported `Loading 49 mods`, listed
+HeapHammer, Spark, Lithium, FerriteCore, and Krypton, and reached
+`Done (1.282s)! For help, type "help"` with no mod-loading exception. The
+server process exited 0 after the verification session.
 
 **Fail condition:** if the server crashes or a mod fails to load, capture
 the exact log line and file it as an issue in this repo (not silently patch
@@ -100,9 +122,18 @@ As a server operator (op level 2+) or from console, in order:
   covering the same time window as the HeapHammer run.
 
 **This is the actual product being shipped** — a verdict *and* a profile for
-the same window, in one session, with no other mod installed. If either
-half is missing (no verdict, or no profile), M1 is not done regardless of
-whether Steps 1–2 passed.
+the same window, in one session, with no mods outside this pack installed.
+If either half is missing (no verdict, or no profile), M1 is not done
+regardless of whether Steps 1–2 passed.
+
+**Observed implementation notes (2026-09-09):** From the server console, the
+commands were run in the documented order (console syntax omits the leading
+`/`). `/hh doctor` reported `Server status: READY` and 841 loaded chunks. The
+chunk run completed as `hh-20260909-084845-5612`; `/hh report show last`
+reported `Status: COMPLETED | Verdict: PASS`, slope `-2.29 MB/cycle`, and
+`R² = 0.02`. Spark reported `Profiler stopped & upload complete!` and emitted
+the profile URL [https://spark.lucko.me/1P5tmAZSNn](https://spark.lucko.me/1P5tmAZSNn),
+which returned HTTP 200 when checked from the same network.
 
 ## What is explicitly NOT required for M1
 
@@ -116,10 +147,11 @@ whether Steps 1–2 passed.
 
 ## M1 acceptance checklist
 
-- [ ] Step 1: all 5 mods resolved via packwiz, `index.toml` committed
-- [ ] Step 2: clean server boot on Fabric 1.21.1, no mod-loading errors
-- [ ] Step 3: soak-test workflow produces both a HeapHammer verdict and a
+- [x] Step 1: all 5 requested mods resolved via packwiz, `index.toml`
+      committed; Fabric API is pinned as the required platform dependency
+- [x] Step 2: clean server boot on Fabric 1.21.1, no mod-loading errors
+- [x] Step 3: soak-test workflow produces both a HeapHammer verdict and a
       Spark profile URL for the same run
-- [ ] Any slug corrections or install-method decisions made along the way
+- [x] Any slug corrections or install-method decisions made along the way
       are recorded in Decision.md or this file, not left implicit
-- [ ] README.md updated if any command in it needed correcting
+- [x] README.md updated if any command in it needed correcting

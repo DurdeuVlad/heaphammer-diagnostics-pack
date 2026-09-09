@@ -1,0 +1,11 @@
+# Local packwiz tooling and disposable M1 server fixtures
+/.packwiz-tools/
+/.m1-server/
+
+# Agent/session output
+.codex-*
+
+# Never include downloaded binaries or generated exports in the pack index
+*.jar
+*.mrpack
+/bundle.zip
