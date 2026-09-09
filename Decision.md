@@ -2,6 +2,38 @@
 
 Durable decision log. Newest first. Status values: `decided`, `open`, `superseded`.
 
+## Implementation addendum — 2026-09-09 (M3: expand to 6 Fabric versions)
+
+- **D-004 superseded.** The pack now targets 6 Fabric MC versions instead of
+  only 1.21.1: 1.16.5, 1.18.2, 1.19.2, 1.20.1, 1.21.1, 1.21.4. HeapHammer
+  itself has branches for 8 MC versions (1.7.10, 1.12.2, 1.16.5, 1.18.2,
+  1.19.2, 1.20.1, 1.21.1, 1.21.4); the two Forge-only versions (1.7.10,
+  1.12.2) are excluded because the optimizer set (Lithium, Krypton,
+  FerriteCore) is Fabric-only and D-003 mandates that set intact.
+- **Repo restructured.** Each version's pack lives in `packs/<version>/`
+  with its own `pack.toml`, `index.toml`, and `mods/` directory. The
+  root-level docs (Decision.md, README.md, Testing.md, etc.) are no longer
+  indexed in any pack — they are repo documentation, not modpack content.
+- **D-003 intact.** All 5 requested mods (HeapHammer, Spark, Lithium,
+  FerriteCore, Krypton) plus Fabric API are present in all 6 packs. No
+  mod was substituted or removed. Per-version mod versions were resolved
+  by `packwiz curseforge add` with auto game-version detection from
+  `pack.toml`; the resolved versions are recorded in each
+  `packs/<version>/mods/*.pw.toml`.
+- **Java runtime:** 1.16.5–1.20.1 require Java 17 (HeapHammer's
+  `gradle.properties` declares Java 17 for those branches, even for
+  1.16.5 which originally shipped on Java 8). 1.21.1 and 1.21.4 require
+  Java 21. Server admins must install the correct Java runtime for their
+  target version.
+- **Fabric Loader versions:** 1.16.5–1.20.1 use Fabric Loader 0.15.11
+  (HeapHammer's declared minimum for those branches). 1.21.1 uses 0.19.5;
+  1.21.4 uses 0.16.10.
+- **Empirical verification pending.** The 1.21.1 pack was already
+  verified during M1. The 5 new packs have hash-consistency verification
+  only (all mod hashes match index.toml, all index hashes match pack.toml).
+  Server-boot and soak-test verification for the 5 new packs is the next
+  step before M2 publication.
+
 ## Implementation addendum — 2026-09-09 (M2-2: re-source all six mods to CurseForge)
 
 - HeapHammer was approved on CurseForge
@@ -103,7 +135,8 @@ Durable decision log. Newest first. Status values: `decided`, `open`, `supersede
 
 ## D-004: Version target for v0.1.0 is Fabric 1.21.1 only
 
-- **Status:** decided
+- **Status:** superseded (2026-09-09 — see M3 addendum above; pack now
+  targets 6 Fabric versions: 1.16.5, 1.18.2, 1.19.2, 1.20.1, 1.21.1, 1.21.4)
 - **Context:** HeapHammer itself ships 8 version/loader combinations (Forge
   1.7.10/1.12.2; Fabric 1.16.5–1.21.4; Fabric+NeoForge 1.21.1). A diagnostics
   pack could target any subset.

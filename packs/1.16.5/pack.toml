@@ -1,0 +1,13 @@
+name = "HeapHammer Diagnostics Pack"
+author = "dwurdy"
+version = "0.1.0"
+pack-format = "packwiz:1.1.0"
+
+[index]
+file = "index.toml"
+hash-format = "sha256"
+hash = "dfed0908b4ec4e072580609c3aee5b8db02576344666bfa2ca6b054e7fae5562"
+
+[versions]
+fabric = "0.15.11"
+minecraft = "1.16.5"

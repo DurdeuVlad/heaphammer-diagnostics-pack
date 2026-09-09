@@ -1,34 +1,6 @@
 hash-format = "sha256"
 
 [[files]]
-file = "AGENTS.md"
-hash = "9a1352ed4d1da39f17abe69d59a5247c55b542241c9271e44affb36ba280d0dc"
-
-[[files]]
-file = "Business.md"
-hash = "b12776db6c73f9264ea3449823d4da3be73ba531087dab8875194da8f7aae852"
-
-[[files]]
-file = "Collaboration.md"
-hash = "960192d5480d525bd2e483329eae7b4b10e81cc067f7fc67509d47c5382ff092"
-
-[[files]]
-file = "Decision.md"
-hash = "f4e44225562a4c2b1635976d0bbe9a148788ac19e0bb67e61ebec8d9c923679c"
-
-[[files]]
-file = "Milestones.md"
-hash = "2d330c60a95328d5187faf82fe732f78d05928f0d9feba8a46d2a1741d876021"
-
-[[files]]
-file = "README.md"
-hash = "20e59bdea5737a77052bb7e7d4a69dfb91159e04f48a698e7e239aa04f44fd0a"
-
-[[files]]
-file = "Testing.md"
-hash = "532653c7860059e0aacc6e72315a38191ab3be956f672ec9c67d8663004ba623"
-
-[[files]]
 file = "mods/fabric-api.pw.toml"
 hash = "774fd0adcb4fdc2e8f90991fe3515e68f21d41a10b9daa8094bb2f7b78790df6"
 metafile = true

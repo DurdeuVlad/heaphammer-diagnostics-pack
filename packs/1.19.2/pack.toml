@@ -2,13 +2,12 @@ name = "HeapHammer Diagnostics Pack"
 author = "dwurdy"
 version = "0.1.0"
 pack-format = "packwiz:1.1.0"
-license = "LGPL-3.0-only"
 
 [index]
 file = "index.toml"
 hash-format = "sha256"
-hash = "193c2b2d5ebad2095a2d2ca8c098bc1fb540f66913c57ad7e38e822e67446535"
+hash = "c9cf179318850472e645145e885919a3a8f02860f061a7154551db4839466d74"
 
 [versions]
-fabric = "0.19.5"
-minecraft = "1.21.1"
+fabric = "0.15.11"
+minecraft = "1.19.2"
