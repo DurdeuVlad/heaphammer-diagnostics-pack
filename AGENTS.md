@@ -4,11 +4,14 @@ Entry point for any AI agent (or human) picking up this repo cold.
 
 ## Current status (as of 2026-09-09)
 
-- **M1 is complete** (1.21.1 verified). **M3 is complete** (6 Fabric
-  versions: 1.16.5, 1.18.2, 1.19.2, 1.20.1, 1.21.1, 1.21.4 — all
-  hash-consistency verified; server-boot verification pending for 5 new
-  versions). **M2 is in progress** (1.21.1 export artifacts produced; 5
-  new version exports and platform submission pending).
+- **M1 is complete** (1.21.1 verified with soak test). **M3 is complete**
+  (6 Fabric versions: 1.16.5, 1.18.2, 1.19.2, 1.20.1, 1.21.1, 1.21.4 —
+  all 6 boot-verified under Java 21). **M2 is in progress** (12 export
+  artifacts produced in dist/; platform submission pending — see
+  PUBLISH-PROMPT.md for the Claude browser-extension handoff).
+- **Known caveat:** the 1.16.5 pack requires a HeapHammer jar fix
+  (bundle slf4j-api) before it can be published. See Testing.md for
+  details. The other 5 versions are publish-ready.
 - The pack is now multi-version: each version lives in
   `packs/<version>/` with its own `pack.toml`, `index.toml`, and
   `mods/`. Root-level docs (this file, Decision.md, README.md, etc.) are
@@ -37,11 +40,11 @@ Entry point for any AI agent (or human) picking up this repo cold.
 
 ## What you're being asked to do
 
-M1 and M3 are complete (hash-consistency verified for all 6 packs). The
-next step is server-boot verification for the 5 new versions (1.16.5,
-1.18.2, 1.19.2, 1.20.1, 1.21.4), then M2 publication. Do not start M2
-publication or the open HeapHammer Modrinth-source follow-up unless
-explicitly asked.
+M1 and M3 are complete (all 6 packs boot-verified under Java 21). The
+next step is M2 platform publication (CurseForge + Modrinth) using the
+PUBLISH-PROMPT.md handoff. Do not start publication unless explicitly
+asked, and do not publish 1.16.5 until the HeapHammer slf4j jar fix
+lands.
 
 ## Hard rules
 

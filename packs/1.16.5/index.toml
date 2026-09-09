@@ -2,30 +2,30 @@ hash-format = "sha256"
 
 [[files]]
 file = "mods/fabric-api.pw.toml"
-hash = "b5cb24a4168af0e3a6400c248c440bd0bb6e08a8bb6d03922fa2b1f6376ed6d8"
+hash = "e1b7b764ca0bf1f42e0219a496c97e9f09328a3001413388083c2f7cba3d16b7"
 metafile = true
 
 [[files]]
 file = "mods/ferritecore-fabric.pw.toml"
-hash = "1140e9e9cca29663eab71692275c5ba278f7dee0148d5839e164e37a13179324"
+hash = "80dff4759481a9765f810c9e427f7b7d1229defd9beba09003ddaa1821b8d8a8"
 metafile = true
 
 [[files]]
 file = "mods/heaphammer.pw.toml"
-hash = "538c1ab553e293d355de93e2cfac9ec688ecb0b7f59e59e9eda07b8b2cbeb2a7"
+hash = "25f2895089d821be3dc5e721f9db7a015c2494c7d52e300c617920a0da3581b7"
 metafile = true
 
 [[files]]
 file = "mods/krypton.pw.toml"
-hash = "287314ad6cd915a4dac2dd6e95925b9377982001f8497f34c3ca66bcd1b56377"
+hash = "5fa8b7f1b376d6ec395f5997e9b1d86c930d4d241b1daa5346d9024d9ba80ec9"
 metafile = true
 
 [[files]]
 file = "mods/lithium.pw.toml"
-hash = "7bd1db2530fd573e56c1c3f7f0828f4a26f8d0285783b80eeeffe1162c20e191"
+hash = "b9e2574db3d85cde48277fc7af1877f54dbbc8586de77e8da799a2e148bc0cc9"
 metafile = true
 
 [[files]]
 file = "mods/spark.pw.toml"
-hash = "23baf6b0678d02ab9c78181be86ccb6403725677958db654bbd37c96ffa8b851"
+hash = "a205088c07d2779a44bbd323e9391b3d4bf530396991bcbc785b1694f74c6de8"
 metafile = true

@@ -1,0 +1,44 @@
+name: "Feature Request"
+description: "Suggest a new Minecraft version, mod version bump, or pack improvement"
+title: "[Feature]: "
+labels: ["enhancement", "triage"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Thank you for suggesting an improvement to the HeapHammer Diagnostics Pack!
+        Please note that the mod set is deliberately small (see Decision.md and CONTRIBUTING.md §2).
+        Proposals to add new mods will be evaluated against the existing scope decisions.
+  - type: dropdown
+    id: request_type
+    attributes:
+      label: "Request Type"
+      options:
+        - "New Minecraft version support"
+        - "Mod version bump"
+        - "Documentation improvement"
+        - "Pack metadata / tooling improvement"
+        - "Other"
+    validations:
+      required: true
+  - type: textarea
+    id: problem
+    attributes:
+      label: "Problem or Motivation"
+      description: "What problem does this feature solve? Why is the current pack insufficient?"
+    validations:
+      required: true
+  - type: textarea
+    id: proposed_solution
+    attributes:
+      label: "Proposed Solution"
+      description: "What change do you propose? Be specific (e.g. add packs/1.21.6/ with these mod versions)."
+    validations:
+      required: true
+  - type: textarea
+    id: scope_check
+    attributes:
+      label: "Scope Alignment"
+      description: "How does this proposal align with the deliberate scope decisions in Decision.md? If it requires changing the mod set, explain why."
+    validations:
+      required: true

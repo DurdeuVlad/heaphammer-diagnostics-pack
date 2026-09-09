@@ -1,0 +1,11 @@
+blank_issues_enabled: false
+contact_links:
+  - name: "HeapHammer Documentation"
+    url: "https://github.com/DurdeuVlad/heaphammer"
+    about: "Read the HeapHammer mod documentation, AGENTS.md, and case studies."
+  - name: "GitHub Discussions & Questions"
+    url: "https://github.com/DurdeuVlad/heaphammer-diagnostics-pack/discussions"
+    about: "Ask questions about pack usage, soak-test workflow, or profiling results."
+  - name: "Security Vulnerability Reporting"
+    url: "https://github.com/DurdeuVlad/heaphammer-diagnostics-pack/security/advisories/new"
+    about: "Report sensitive security issues confidentially."

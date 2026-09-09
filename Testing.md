@@ -1,11 +1,11 @@
 # Testing.md
 
 Status: M1 complete (2026-09-09, 1.21.1 verified). M3 multi-version
-expansion complete for hash consistency (all 6 packs); server-boot
-verification pending for 5 new versions (1.16.5, 1.18.2, 1.19.2, 1.20.1,
-1.21.4). Steps 1–3 passed empirically on a disposable Fabric 1.21.1
+expansion complete — all 6 packs verified by empirical server boot
+(2026-09-09). Steps 1–3 passed empirically on a disposable Fabric 1.21.1
 server; the final soak test produced both a HeapHammer verdict and a
-Spark profile URL.
+Spark profile URL. All 6 versions (1.16.5, 1.18.2, 1.19.2, 1.20.1, 1.21.1,
+1.21.4) have been boot-verified under Java 21.
 
 Test strategy for M1 in [Milestones.md](Milestones.md). This project has no
 application code to unit-test — "testing" here means proving the pack
@@ -20,10 +20,16 @@ command and read its output; do not infer a PASS from reading the config.
   run and rejected as unsupported. CLI availability was instead verified by
   `packwiz --help` and the successful mod-resolution commands below.
 - A Java runtime available for the target version:
-  - Java 21 for 1.21.1 and 1.21.4
-  - Java 17 for 1.16.5, 1.18.2, 1.19.2, 1.20.1
-  (HeapHammer's `gradle.properties` declares Java 17 for 1.16.5 even though
-  MC 1.16.5 originally shipped on Java 8 — the mod requires Java 17.)
+  - Java 21 (Eclipse Temurin 21.0.12) for all 6 versions.
+  - HeapHammer's mixin configuration requests `JAVA_21` compatibility on
+    all branches, including 1.16.5, 1.18.2, 1.19.2, and 1.20.1. Earlier
+    attempts to boot 1.20.1 with Java 17 failed with
+    `The requested compatibility level JAVA_21 could not be set. Level is
+    not supported by the active JRE`. All versions were therefore
+    verified under Java 21.
+  - MC 1.16.5 originally shipped on Java 8, but HeapHammer's
+    `gradle.properties` declares Java 17 and its mixin config requests
+    JAVA_21; the mod requires Java 21 at runtime.
 - Network access to CurseForge (packwiz resolves mods from there). A
   CurseForge API key may be required for some `packwiz curseforge` operations
   per the packwiz docs; the add commands below were verified to resolve
@@ -188,16 +194,103 @@ which returned HTTP 200 when checked from the same network.
 Each pack lives in `packs/<version>/` with its own `pack.toml`,
 `index.toml`, and `mods/`. All 6 packs have hash-consistency verification
 (all mod hashes match index.toml, all index hashes match pack.toml).
-Server-boot verification is pending for the 5 new versions.
+All 6 packs have been server-boot verified under Java 21.
 
 | MC Version | Fabric Loader | Fabric API | HeapHammer | Spark | Lithium | FerriteCore | Krypton |
 |---|---|---|---|---|---|---|---|
-| 1.16.5 | 0.15.11 | 0.42.0+1.16 | 1.0.0 | spark-fabric | 0.6.6 | 2.1.1 | 0.1.2 |
-| 1.18.2 | 0.15.11 | 0.77.0+1.18.2 | 1.0.0 | 1.10.39 | 0.10.3 | 4.2.1 | 0.1.9 |
-| 1.19.2 | 0.15.11 | 0.77.0+1.19.2 | 1.0.0 | 1.10.37 | 0.11.1 | 5.0.3 | 0.2.1 |
-| 1.20.1 | 0.15.11 | 0.92.12+1.20.1 | 1.0.0 | 1.10.53 | 0.11.4 | 6.0.1 | 0.2.3 |
+| 1.16.5 | 0.19.5 | 0.42.0+1.16 | 1.0.0 | 1.6.0 | 0.6.6 | 2.1.1 | 0.1.2 |
+| 1.18.2 | 0.19.5 | 0.77.0+1.18.2 | 1.0.0 | 1.10.39 | 0.10.3 | 4.2.1 | 0.1.9 |
+| 1.19.2 | 0.19.5 | 0.77.0+1.19.2 | 1.0.0 | 1.10.37 | 0.11.1 | 5.0.3 | 0.2.1 |
+| 1.20.1 | 0.19.5 | 0.92.12+1.20.1 | 1.0.0 | 1.10.53 | 0.11.4 | 6.0.1 | 0.2.3 |
 | 1.21.1 | 0.19.5 | 0.116.17+1.21.1 | 1.0.0 | 1.10.109 | 0.15.4 | 7.0.3 | 0.2.8 |
-| 1.21.4 | 0.16.10 | 0.119.4+1.21.4 | 1.0.0 | 1.10.121 | 0.15.3 | 7.1.3 | 0.2.8 |
+| 1.21.4 | 0.19.5 | 0.119.4+1.21.4 | 1.0.0 | 1.10.121 | 0.15.3 | 7.1.3 | 0.2.8 |
+
+Note: `pack.toml` pins `fabric = "0.15.11"` for 1.16.5/1.18.2/1.19.2/1.20.1
+as a minimum loader floor. The Fabric installer was observed to install
+Loader 0.19.5 (the latest at verification time) for all 6 versions, which
+satisfies the minimum. The 1.21.1 and 1.21.4 packs pin `fabric = "0.19.5"`
+explicitly.
+
+### M3 per-version boot verification receipts
+
+All boots used a disposable `.verify/<version>/` workspace, Fabric
+installer `-downloadMinecraft`, packwiz-installer-bootstrap against a
+local `packwiz serve` instance, `online-mode=false`, and a non-default
+server port (25585) to avoid conflicts. Java 21 (Eclipse Temurin
+21.0.12.101-hotspot) was used for every version.
+
+#### 1.16.5 — PASS (with known HeapHammer jar caveat)
+
+- Mods loaded (44 total): fabric 0.42.0+1.16, fabricloader 0.19.5,
+  ferritecore 2.1.1, heaphammer 1.0.0, krypton 0.1.2, lithium 0.6.6,
+  spark 1.6.0.
+- `Done (13.791s)! For help, type "help"`
+- Non-fatal warnings: SLF4J "No SLF4J providers were found" (defaults to
+  NOP logger); offline mode; async-profiler not supported on
+  windows11/amd64 (built-in Java engine used).
+- **Known caveat (HeapHammer jar bug, not a pack bug):** the published
+  HeapHammer 1.16.5 jar (`heaphammer-1.0.0-MC1.16.5-Fabric.jar`,
+  CurseForge file-id 8840061) declares `org.slf4j:slf4j-api:2.0.13` as an
+  `implementation` dependency in its Gradle build, which means slf4j-api
+  is NOT bundled into the jar. Minecraft 1.16.5 does not ship slf4j on
+  its classpath (unlike 1.17+), so the mod fails with
+  `NoClassDefFoundError: org/slf4j/LoggerFactory` on a stock install.
+  The verification boot was completed by adding `slf4j-api-2.0.13.jar`
+  to the `fabric-server-launch.jar` manifest `Class-Path` as a
+  verification-only workaround. The fix belongs in the HeapHammer repo
+  (change `implementation` to `include` for slf4j-api on the 1.16.5
+  branch) — per AGENTS.md, the pack repo does not modify HeapHammer.
+  The pack metadata itself is correct; the 1.16.5 pack should not be
+  published until HeapHammer 1.16.5 ships a jar that bundles slf4j-api.
+
+#### 1.18.2 — PASS
+
+- Mods loaded (46 total): fabric-api 0.77.0+1.18.2, fabricloader 0.19.5,
+  ferritecore 4.2.1, heaphammer 1.0.0, krypton 0.1.9, lithium 0.10.3,
+  spark 1.10.39.
+- `Done (20.093s)! For help, type "help"`
+- Non-fatal warnings: offline mode; async-profiler fallback to built-in
+  Java engine; lithium/krypton `@Redirect` conflict on
+  `EntityTrackerMixin` (resolved by mixin priority, not a crash).
+
+#### 1.19.2 — PASS
+
+- Mods loaded (49 total): fabric-api 0.77.0+1.19.2, fabricloader 0.19.5,
+  ferritecore 5.0.3, heaphammer 1.0.0, krypton 0.2.1, lithium 0.11.1,
+  spark 1.10.37.
+- `Done (39.029s)! For help, type "help"`
+- Non-fatal warnings: offline mode; async-profiler fallback to built-in
+  Java engine; ferritecore force-disables lithium's
+  `alloc.blockstate.StateMixin`; krypton force-disables lithium's
+  `world.player_chunk_tick.ThreadedAnvilChunkStorageMixin`.
+- HeapHammer initialized and registered commands; Spark started
+  background profiler; Krypton initialized.
+
+#### 1.20.1 — PASS
+
+- Mods loaded (52 total): fabric-api 0.92.12+1.20.1, fabricloader 0.19.5,
+  ferritecore 6.0.1, heaphammer 1.0.0, krypton 0.2.3, lithium 0.11.4,
+  spark 1.10.53.
+- `Done (19.043s)! For help, type "help"`
+- Non-fatal warnings: offline mode; async-profiler fallback.
+- HeapHammer initialized and registered commands; Spark started
+  background profiler; Krypton initialized.
+
+#### 1.21.1 — PASS (M1, 2026-09-09)
+
+- Verified during M1. See Step 2 and Step 3 receipts above. Soak test
+  produced `Verdict: PASS`, slope `-2.29 MB/cycle`, `R² = 0.02`, and
+  Spark profile [https://spark.lucko.me/1P5tmAZSNn](https://spark.lucko.me/1P5tmAZSNn).
+
+#### 1.21.4 — PASS
+
+- Mods loaded: fabric-api 0.119.4+1.21.4, fabricloader 0.19.5,
+  ferritecore 7.1.3, heaphammer 1.0.0, krypton 0.2.8, lithium
+  0.15.3+mc1.21.4, spark 1.10.121.
+- `Done (7.054s)! For help, type "help"`
+- Non-fatal warnings: offline mode; async-profiler fallback.
+- HeapHammer initialized and registered commands; Spark started
+  background profiler; Krypton initialized; world created and prepared.
 
 ### M3 verification checklist
 
@@ -206,9 +299,9 @@ Server-boot verification is pending for the 5 new versions.
 - [x] All mod file hashes match index.toml entries for all 6 packs
 - [x] All index.toml hashes match pack.toml `[index].hash` for all 6 packs
 - [x] All pack.toml files carry `license = "LGPL-3.0-only"`
-- [ ] Server-boot verification for 1.16.5 (pending)
-- [ ] Server-boot verification for 1.18.2 (pending)
-- [ ] Server-boot verification for 1.19.2 (pending)
-- [ ] Server-boot verification for 1.20.1 (pending)
-- [x] Server-boot verification for 1.21.1 (done in M1)
-- [ ] Server-boot verification for 1.21.4 (pending)
+- [x] Server-boot verification for 1.16.5 (PASS with HeapHammer slf4j caveat)
+- [x] Server-boot verification for 1.18.2 (PASS)
+- [x] Server-boot verification for 1.19.2 (PASS)
+- [x] Server-boot verification for 1.20.1 (PASS)
+- [x] Server-boot verification for 1.21.1 (PASS, M1)
+- [x] Server-boot verification for 1.21.4 (PASS)

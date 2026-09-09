@@ -14,12 +14,17 @@ chosen, and [Milestones.md](Milestones.md) for what "done" looks like.
 
 | MC Version | Fabric Loader | Java | Pack directory |
 |---|---|---|---|
-| 1.16.5 | 0.15.11 | 17 | `packs/1.16.5/` |
-| 1.18.2 | 0.15.11 | 17 | `packs/1.18.2/` |
-| 1.19.2 | 0.15.11 | 17 | `packs/1.19.2/` |
-| 1.20.1 | 0.15.11 | 17 | `packs/1.20.1/` |
+| 1.16.5 | 0.15.11+ | 21 | `packs/1.16.5/` |
+| 1.18.2 | 0.15.11+ | 21 | `packs/1.18.2/` |
+| 1.19.2 | 0.15.11+ | 21 | `packs/1.19.2/` |
+| 1.20.1 | 0.15.11+ | 21 | `packs/1.20.1/` |
 | 1.21.1 | 0.19.5 | 21 | `packs/1.21.1/` |
-| 1.21.4 | 0.16.10 | 21 | `packs/1.21.4/` |
+| 1.21.4 | 0.16.10+ | 21 | `packs/1.21.4/` |
+
+All versions require Java 21 (Eclipse Temurin 21 verified). HeapHammer's
+mixin configuration requests `JAVA_21` compatibility on all branches,
+including 1.16.5–1.20.1, so Java 17 is insufficient despite those Minecraft
+versions originally shipping on Java 8 or 17.
 
 Forge versions (1.7.10, 1.12.2) are not supported — the optimizer mods
 (Lithium, Krypton, FerriteCore) are Fabric-only (see Decision.md D-003,
@@ -88,7 +93,13 @@ pin is the single source for both exports until that lands.
 M1 complete (1.21.1 verified): the five requested mods are pinned, the
 pack boots on a real Fabric 1.21.1 server, and the documented soak-test
 workflow produced both a HeapHammer verdict and a Spark profile. M3
-multi-version expansion complete for 5 additional versions (1.16.5,
-1.18.2, 1.19.2, 1.20.1, 1.21.4) — hash-consistency verified, server-boot
-verification pending. See
-[Milestones.md](Milestones.md).
+multi-version expansion complete — all 6 versions (1.16.5, 1.18.2,
+1.19.2, 1.20.1, 1.21.1, 1.21.4) boot-verified under Java 21. See
+[Milestones.md](Milestones.md) and [Testing.md](Testing.md) for per-version
+verification receipts.
+
+**Known caveat (1.16.5):** the published HeapHammer 1.16.5 jar does not
+bundle `slf4j-api`, which Minecraft 1.16.5 does not ship. The pack
+metadata is correct, but the 1.16.5 pack should not be published until
+HeapHammer 1.16.5 ships a jar that bundles slf4j-api (see Testing.md for
+details).

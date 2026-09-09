@@ -1,12 +1,13 @@
-name = "HeapHammer Diagnostics Pack"
+﻿name = "HeapHammer Diagnostics Pack"
 author = "dwurdy"
 version = "0.1.0"
 pack-format = "packwiz:1.1.0"
+license = "LGPL-3.0-only"
 
 [index]
 file = "index.toml"
 hash-format = "sha256"
-hash = "a703be9b2a9d52eb398ed1bebdc546db922bc2b1d0a7e3b81d22e4211ec71fb5"
+hash = "06916a36506d3a885141dfff26da5daa2db50ce79c7dde99bda08f724495083b"
 
 [versions]
 fabric = "0.19.5"

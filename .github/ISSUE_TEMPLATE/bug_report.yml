@@ -1,0 +1,71 @@
+name: "Bug Report"
+description: "Report a pack installation failure, server boot crash, or mod compatibility issue"
+title: "[Bug]: "
+labels: ["bug", "triage"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Thank you for reporting an issue with the HeapHammer Diagnostics Pack!
+        Please provide enough detail for the maintainer to reproduce the problem.
+  - type: dropdown
+    id: mc_version
+    attributes:
+      label: "Minecraft Version"
+      options:
+        - "1.21.4"
+        - "1.21.1"
+        - "1.20.1"
+        - "1.19.2"
+        - "1.18.2"
+        - "1.16.5"
+        - "Other"
+    validations:
+      required: true
+  - type: input
+    id: environment
+    attributes:
+      label: "Environment Details"
+      description: "Fabric Loader version, Java version (must be Java 21 for HeapHammer), OS, server type"
+      placeholder: "Fabric Loader 0.19.5, Eclipse Temurin JDK 21, Windows/Linux, Dedicated Server"
+    validations:
+      required: true
+  - type: input
+    id: pack_version
+    attributes:
+      label: "Pack Version"
+      description: "The version field from packs/<version>/pack.toml"
+      placeholder: "0.1.0"
+    validations:
+      required: true
+  - type: textarea
+    id: reproduction_steps
+    attributes:
+      label: "Reproduction Steps"
+      description: "Exact commands to install and boot the pack (packwiz install, fabric server launch, etc.)"
+      placeholder: |
+        1. packwiz serve --port 19091 --pack-file packs/1.20.1/pack.toml
+        2. java -jar packwiz-installer-bootstrap.jar -g -s server http://127.0.0.1:19091/pack.toml
+        3. java -Xmx2G -jar fabric-server-launch.jar nogui
+    validations:
+      required: true
+  - type: textarea
+    id: expected_behavior
+    attributes:
+      label: "Expected Behavior"
+      description: "What you expected to happen (e.g. server boots to Done line with all 6 mods loaded)."
+    validations:
+      required: true
+  - type: textarea
+    id: actual_behavior
+    attributes:
+      label: "Actual Behavior"
+      description: "What actually happened, including error messages, crashes, or missing mod errors."
+    validations:
+      required: true
+  - type: textarea
+    id: logs
+    attributes:
+      label: "Relevant Server Log Excerpt"
+      description: "Paste the relevant portion of the server log (from mod loading to the crash or Done line)."
+      render: text
