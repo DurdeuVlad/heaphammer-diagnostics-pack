@@ -18,7 +18,9 @@ Status: draft — no milestone has started implementation yet.
   bundled mods release updates before this milestone ships.
 - **Evidence of done:** a server operator can follow the README end-to-end
   on a clean Fabric 1.21.1 server and get a HeapHammer verdict with a
-  correlated Spark profile, with no manual mod hunting.
+  correlated Spark profile, with no manual mod hunting. See
+  [Testing.md](Testing.md#m1-acceptance-checklist) for the exact checklist
+  and commands that prove this.
 - **Owner:** dwurdy (sole maintainer).
 - **Status:** not started.
 
