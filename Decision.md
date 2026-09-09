@@ -2,6 +2,31 @@
 
 Durable decision log. Newest first. Status values: `decided`, `open`, `superseded`.
 
+## Implementation addendum — 2026-09-09
+
+- The live Modrinth API and packwiz both returned no project for `heaphammer`.
+  The exact Fabric 1.21.1 `heaphammer-1.21.1-1.0.0.jar` release asset is
+  therefore pinned with packwiz's native GitHub source support instead of
+  substituting a different mod or version. The four optimizer/profiler pins
+  remain Modrinth-sourced.
+
+## Open follow-up: swap HeapHammer to its Modrinth source once approved
+
+- **Status:** open, blocked on external moderation
+- **Context:** HeapHammer was submitted to Modrinth on 2026-09-09 and is
+  "Under review" — that's why it 404s from the public API today (see
+  addendum above). This is expected, not a bug in either project.
+- **Action once approved:** re-pin with
+  `packwiz modrinth add heaphammer` (removing the GitHub-source pin first,
+  `packwiz remove heaphammer` if packwiz requires that), confirm the
+  resolved version matches the same `1.21.1-1.0.0` release, `packwiz refresh`,
+  and update README.md's mod table/build commands back to a plain Modrinth
+  add. Not urgent — the GitHub-source pin works correctly in the meantime and
+  is not a degraded fallback, just a different (equally valid) packwiz
+  source type.
+- **Owner:** dwurdy — check HeapHammer's Modrinth project status
+  periodically; not something this repo can detect on its own.
+
 ---
 
 ## D-005: Distribution format is packwiz, not a raw CurseForge/Modrinth manifest.zip

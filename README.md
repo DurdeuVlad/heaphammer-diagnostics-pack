@@ -14,7 +14,7 @@ chosen, and [Milestones.md](Milestones.md) for what "done" looks like.
 
 | Mod | Role |
 |---|---|
-| [HeapHammer](https://modrinth.com/mod/heaphammer) | leak/regression detector — the reason this pack exists |
+| [HeapHammer](https://github.com/DurdeuVlad/heaphammer) | leak/regression detector — the reason this pack exists |
 | [Spark](https://modrinth.com/mod/spark) | profiler — CPU/tick/heap visibility during a HeapHammer run |
 | [Lithium](https://modrinth.com/mod/lithium) | optimizer — vanilla logic rewrite, no behavior change |
 | [FerriteCore](https://modrinth.com/mod/ferrite-core) | optimizer — memory dedup |
@@ -43,21 +43,25 @@ This project uses [packwiz](https://packwiz.infra.link/) (`pack.toml` +
 `index.toml`, git-friendly TOML) as the single source that exports to both
 CurseForge and Modrinth formats.
 
-Not yet done — next build step:
+The five mod pins are committed in `index.toml` and `mods/*.pw.toml`. To
+recreate or update them from the repo root:
 
 ```bash
-# install packwiz, then from this directory:
-packwiz modrinth add heaphammer
+# install packwiz, then from this directory. HeapHammer is sourced from its
+# GitHub release because no Modrinth project exists for the published jar:
+packwiz github add DurdeuVlad/heaphammer --regex 'heaphammer-1\.21\.1-1\.0\.0\.jar'
 packwiz modrinth add spark
 packwiz modrinth add lithium
 packwiz modrinth add ferrite-core
 packwiz modrinth add krypton
 ```
 
-This generates `index.toml` and per-mod `.pw.toml` files with real,
-verifiable hashes and version pins — nothing here fabricates those by hand.
+These commands generate/update `index.toml` and per-mod `.pw.toml` files with
+real, verifiable hashes and version pins — nothing here fabricates those by
+hand.
 
 ## Status
 
-Pre-v0.1.0. `pack.toml` scaffolded; mods not yet pinned. See
+M1 implementation in progress: the five mods are pinned; server boot and the
+soak-test workflow are still being verified. See
 [Milestones.md](Milestones.md#m1-v010--fabric-1211-pack-builds-and-installs).

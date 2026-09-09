@@ -1,0 +1,15 @@
+name = "heaphammer"
+filename = "heaphammer-1.21.1-1.0.0.jar"
+side = "both"
+
+[download]
+url = "https://github.com/DurdeuVlad/heaphammer/releases/download/v1.0.0/heaphammer-1.21.1-1.0.0.jar"
+hash-format = "sha256"
+hash = "7e27288d087bfcf15fc08893252ee3874c700ecbb00fdcc4e5b67db664dc212b"
+
+[update]
+[update.github]
+branch = "master"
+regex = "heaphammer-1\\.21\\.1-1\\.0\\.0\\.jar"
+slug = "DurdeuVlad/heaphammer"
+tag = "v1.0.0"

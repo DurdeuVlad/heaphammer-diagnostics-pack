@@ -1,0 +1,54 @@
+hash-format = "sha256"
+
+[[files]]
+file = "AGENTS.md"
+hash = "2c1f4d1440a395b4b6f34417bb8cf6131f66840cfafb813228b292dc70b16dae"
+
+[[files]]
+file = "Business.md"
+hash = "b12776db6c73f9264ea3449823d4da3be73ba531087dab8875194da8f7aae852"
+
+[[files]]
+file = "Collaboration.md"
+hash = "960192d5480d525bd2e483329eae7b4b10e81cc067f7fc67509d47c5382ff092"
+
+[[files]]
+file = "Decision.md"
+hash = "eec76eb32440fb7e3acb71272e7e0d3d20e77dc7e62a37ece40330100ea5eb08"
+
+[[files]]
+file = "Milestones.md"
+hash = "d91da94164c8a960f91e2bc75e765343f77db018c945637fa40d68726619b7b8"
+
+[[files]]
+file = "README.md"
+hash = "e83b5d00032a2c624d17a7ea3c805c69db429df0b018139f8795120e4397c690"
+
+[[files]]
+file = "Testing.md"
+hash = "6f93fef9939adf4756e465c8bf0bf9b699a1d8d8f0539e4c1b2f7034016a3b66"
+
+[[files]]
+file = "mods/ferrite-core.pw.toml"
+hash = "1d5799cd3b6ea714602c18546b99ba894e7511835b77803304792468fb7ee187"
+metafile = true
+
+[[files]]
+file = "mods/heaphammer.pw.toml"
+hash = "c29aa000775e290a4a2c7156737bf8e11cfc0c5e216a5fa1b2285f465abf93e5"
+metafile = true
+
+[[files]]
+file = "mods/krypton.pw.toml"
+hash = "c4e45594c8d1ab3dacc3b49142f16fb253178dd31d97cc917bf4a4d54f21e081"
+metafile = true
+
+[[files]]
+file = "mods/lithium.pw.toml"
+hash = "e10e639f71700a67d7f9b9d747e1685f838d703dadd432464b54e31b26f4742b"
+metafile = true
+
+[[files]]
+file = "mods/spark.pw.toml"
+hash = "9bdd041fb29ab003ef5bb1f0ba53516847e32e3010a3fce247f743fc98e08a6b"
+metafile = true

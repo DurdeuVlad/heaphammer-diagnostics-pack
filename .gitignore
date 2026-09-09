@@ -1,9 +1,19 @@
 # packwiz build output
 /.packwiz/
+/.packwiz-tools/
+/.m1-server/
 /pack/
 *.mrpack
 /bundle.zip
 
+# never commit actual mod binaries — only packwiz's .pw.toml metadata
+# (hash + download source) belongs in git; jars are fetched locally by
+# packwiz/packwiz-installer at build/install time
+*.jar
+
 # OS / editor noise
 .DS_Store
 Thumbs.db
+
+# local agent run logs
+.codex-*

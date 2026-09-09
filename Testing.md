@@ -1,6 +1,7 @@
 # Testing.md
 
-Status: draft
+Status: M1 implementation in progress. Step 1 has passed empirically; server
+boot and the soak-test workflow are not yet verified.
 
 Test strategy for M1 in [Milestones.md](Milestones.md). This project has no
 application code to unit-test — "testing" here means proving the pack
@@ -10,7 +11,10 @@ command and read its output; do not infer a PASS from reading the config.
 
 ## Pre-requisites
 
-- packwiz CLI installed (`packwiz version` succeeds).
+- packwiz CLI installed. The current official build has no `version` command
+  or `--version` flag; `packwiz version` and `packwiz --version` were both
+  run and rejected as unsupported. CLI availability was instead verified by
+  `packwiz --help` and the successful mod-resolution commands below.
 - A Java 21 runtime available (Minecraft 1.21.1 requires Java 21) to run a
   throwaway Fabric server for verification — this does not need to be a
   production server, a local disposable install is enough.
@@ -21,7 +25,7 @@ command and read its output; do not infer a PASS from reading the config.
 Run, from the repo root:
 
 ```bash
-packwiz modrinth add heaphammer
+packwiz github add DurdeuVlad/heaphammer --regex 'heaphammer-1\.21\.1-1\.0\.0\.jar'
 packwiz modrinth add spark
 packwiz modrinth add lithium
 packwiz modrinth add ferrite-core
@@ -30,6 +34,16 @@ packwiz modrinth add krypton
 
 **Pass condition:** all five commands exit 0 and `index.toml` plus five
 `mods/*.pw.toml` files are created/updated with real hashes.
+
+**Observed implementation notes (2026-09-09):** The existing scaffold did
+not contain `index.toml`; the current packwiz build also refuses `modrinth
+add` and `refresh` until that index exists, so an empty sha256 index was
+initialized before the add commands. `packwiz modrinth add heaphammer`
+returned `no projects found`; the Modrinth API also returned 404 for
+`heaphammer` and no search hits. The exact Fabric 1.21.1 jar was therefore
+added with `packwiz github add DurdeuVlad/heaphammer` using the release asset
+regex above. The four Modrinth commands exited 0; `ferrite-core` resolved as
+written (the downloaded filename is `ferritecore-7.0.3-fabric.jar`).
 
 **Fail condition and what to do:** if a slug in README.md doesn't resolve
 (e.g. `ferrite-core` might actually be `ferritecore` on Modrinth, or a mod
@@ -43,11 +57,10 @@ slug didn't match on the first try.
 
 ## Step 2 — Server boot test
 
-1. Export the pack to a server format packwiz supports (consult
-   `packwiz serve` / `packwiz-installer` docs for the current recommended
-   method — this hasn't been decided in this repo, pick the standard packwiz
-   server-install path and record which one you used in a short note in this
-   file once done).
+1. Serve the pack with `packwiz serve` and install it into the disposable
+   server with `packwiz-installer-bootstrap` using the local `pack.toml` URL.
+   This is the standard packwiz server-install path selected for M1; record
+   the exact command and observed result below once done.
 2. Boot a vanilla Fabric 1.21.1 server with the resolved mods installed and
    `eula.txt` accepted.
 3. Watch the log to `Done (...)! For help, type "help"` with no mod-loading

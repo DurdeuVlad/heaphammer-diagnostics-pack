@@ -3,10 +3,11 @@ author = "dwurdy"
 version = "0.1.0"
 pack-format = "packwiz:1.1.0"
 
-[versions]
-fabric = "0.16.9"
-minecraft = "1.21.1"
-
 [index]
 file = "index.toml"
 hash-format = "sha256"
+hash = "26c424a5a393dd9eaf7a1105542143ac40b0a6511668c81d8b3ab74d09ce0488"
+
+[versions]
+fabric = "0.16.9"
+minecraft = "1.21.1"
