@@ -1,8 +1,11 @@
 # Testing.md
 
-Status: M1 complete (2026-09-09). Steps 1–3 passed empirically on a
-disposable Fabric 1.21.1 server; the final soak test produced both a
-HeapHammer verdict and a Spark profile URL.
+Status: M1 complete (2026-09-09, 1.21.1 verified). M3 multi-version
+expansion complete for hash consistency (all 6 packs); server-boot
+verification pending for 5 new versions (1.16.5, 1.18.2, 1.19.2, 1.20.1,
+1.21.4). Steps 1–3 passed empirically on a disposable Fabric 1.21.1
+server; the final soak test produced both a HeapHammer verdict and a
+Spark profile URL.
 
 Test strategy for M1 in [Milestones.md](Milestones.md). This project has no
 application code to unit-test — "testing" here means proving the pack
@@ -16,9 +19,11 @@ command and read its output; do not infer a PASS from reading the config.
   or `--version` flag; `packwiz version` and `packwiz --version` were both
   run and rejected as unsupported. CLI availability was instead verified by
   `packwiz --help` and the successful mod-resolution commands below.
-- A Java 21 runtime available (Minecraft 1.21.1 requires Java 21) to run a
-  throwaway Fabric server for verification — this does not need to be a
-  production server, a local disposable install is enough.
+- A Java runtime available for the target version:
+  - Java 21 for 1.21.1 and 1.21.4
+  - Java 17 for 1.16.5, 1.18.2, 1.19.2, 1.20.1
+  (HeapHammer's `gradle.properties` declares Java 17 for 1.16.5 even though
+  MC 1.16.5 originally shipped on Java 8 — the mod requires Java 17.)
 - Network access to CurseForge (packwiz resolves mods from there). A
   CurseForge API key may be required for some `packwiz curseforge` operations
   per the packwiz docs; the add commands below were verified to resolve
@@ -177,3 +182,33 @@ which returned HTTP 200 when checked from the same network.
 - [x] Any slug corrections or install-method decisions made along the way
       are recorded in Decision.md or this file, not left implicit
 - [x] README.md updated if any command in it needed correcting
+
+## M3: Multi-version expansion — per-version mod matrix
+
+Each pack lives in `packs/<version>/` with its own `pack.toml`,
+`index.toml`, and `mods/`. All 6 packs have hash-consistency verification
+(all mod hashes match index.toml, all index hashes match pack.toml).
+Server-boot verification is pending for the 5 new versions.
+
+| MC Version | Fabric Loader | Fabric API | HeapHammer | Spark | Lithium | FerriteCore | Krypton |
+|---|---|---|---|---|---|---|---|
+| 1.16.5 | 0.15.11 | 0.42.0+1.16 | 1.0.0 | spark-fabric | 0.6.6 | 2.1.1 | 0.1.2 |
+| 1.18.2 | 0.15.11 | 0.77.0+1.18.2 | 1.0.0 | 1.10.39 | 0.10.3 | 4.2.1 | 0.1.9 |
+| 1.19.2 | 0.15.11 | 0.77.0+1.19.2 | 1.0.0 | 1.10.37 | 0.11.1 | 5.0.3 | 0.2.1 |
+| 1.20.1 | 0.15.11 | 0.92.12+1.20.1 | 1.0.0 | 1.10.53 | 0.11.4 | 6.0.1 | 0.2.3 |
+| 1.21.1 | 0.19.5 | 0.116.17+1.21.1 | 1.0.0 | 1.10.109 | 0.15.4 | 7.0.3 | 0.2.8 |
+| 1.21.4 | 0.16.10 | 0.119.4+1.21.4 | 1.0.0 | 1.10.121 | 0.15.3 | 7.1.3 | 0.2.8 |
+
+### M3 verification checklist
+
+- [x] All 6 packs have 6 mods (HeapHammer, Spark, Lithium, FerriteCore,
+      Krypton, Fabric API)
+- [x] All mod file hashes match index.toml entries for all 6 packs
+- [x] All index.toml hashes match pack.toml `[index].hash` for all 6 packs
+- [x] All pack.toml files carry `license = "LGPL-3.0-only"`
+- [ ] Server-boot verification for 1.16.5 (pending)
+- [ ] Server-boot verification for 1.18.2 (pending)
+- [ ] Server-boot verification for 1.19.2 (pending)
+- [ ] Server-boot verification for 1.20.1 (pending)
+- [x] Server-boot verification for 1.21.1 (done in M1)
+- [ ] Server-boot verification for 1.21.4 (pending)

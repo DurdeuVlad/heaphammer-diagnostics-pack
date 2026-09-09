@@ -1,7 +1,8 @@
 # Milestones.md
 
-Status: M1 complete; M2 in progress (mods re-sourced to CurseForge, license
-added; export artifacts and platform submission pending).
+Status: M1 complete; M3 complete (hash-consistency verified for all 6
+packs; server-boot verification pending for 5 new versions); M2 in
+progress (export artifacts pending for 6 packs).
 
 ## M1: v0.1.0 — Fabric 1.21.1 pack builds and installs
 
@@ -33,16 +34,43 @@ added; export artifacts and platform submission pending).
   review, cross-linking from the HeapHammer mod pages.
 - **Out of scope:** CurseForge Server Affiliation Program enrollment (open
   question in Decision.md — not committed to yet).
-- **Dependencies:** M1 complete.
+- **Dependencies:** M1 complete; M3 complete (for all 6 versions).
 - **Risks:** moderation review timelines are outside this project's control
   (observed with the HeapHammer mod submissions).
 - **Evidence of done:** live, approved project pages on both platforms.
 - **Owner:** dwurdy.
-- **Status:** in progress (mods re-sourced to CurseForge 2026-09-09; export
-  artifacts and platform submission pending).
+- **Status:** in progress (mods re-sourced to CurseForge; 1.21.1 export
+  artifacts produced; 5 new version export artifacts and platform
+  submission pending).
+
+## M3: Multi-version expansion (1.16.5 – 1.21.4)
+
+- **Outcome:** The pack supports 6 Fabric MC versions (1.16.5, 1.18.2,
+  1.19.2, 1.20.1, 1.21.1, 1.21.4), each with the full 5-mod set + Fabric
+  API, in per-version subdirectories under `packs/`.
+- **In scope:** restructure repo to per-version subdirectories; pin all 6
+  mods for each version via `packwiz curseforge add`; hash-consistency
+  verification for all 6 packs; update docs.
+- **Out of scope:** Forge versions (1.7.10, 1.12.2) — optimizer mods are
+  Fabric-only; server-boot verification for the 5 new versions (next step
+  before M2 publication).
+- **Dependencies:** M1 complete; HeapHammer branches for all 6 versions
+  (confirmed: `ver/1.16.5`, `ver/1.18.2`, `ver/1.19.2`, `ver/1.20.1`,
+  `master` for 1.21.1, `ver/1.21.4`).
+- **Risks:** mod version availability gaps (mitigated — all 5 mods + Fabric
+  API confirmed available for all 6 versions); Java runtime mismatch for
+  1.16.5 (HeapHammer requires Java 17, not Java 8).
+- **Evidence of done:** all 6 packs have 6 mods, all hashes match, all
+  index hashes match pack.toml. See
+  [Testing.md](Testing.md#m3-multi-version-expansion--per-version-mod-matrix)
+  for the per-version mod matrix and verification checklist.
+- **Owner:** dwurdy.
+- **Status:** complete (hash-consistency verified 2026-09-09; server-boot
+  verification for 5 new versions pending).
 
 ## Deferred (explicitly out of current milestones)
 
 - NeoForge 1.21.1 variant (Decision.md D-004).
 - Starlight/Moonrise and C2ME inclusion (Decision.md D-003).
 - Any admin/QoL/builder-tool expansion (Decision.md D-002).
+- Forge versions 1.7.10 and 1.12.2 (optimizer mods are Fabric-only).

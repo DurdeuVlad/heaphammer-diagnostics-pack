@@ -4,11 +4,15 @@ Entry point for any AI agent (or human) picking up this repo cold.
 
 ## Current status (as of 2026-09-09)
 
-- **M1 is complete.** The five requested mods are pinned in `index.toml` and
-  `mods/*.pw.toml`, with Fabric API pinned as a required platform dependency.
-  A disposable Fabric 1.21.1 server booted cleanly and the documented
-  HeapHammer + Spark soak-test workflow produced a PASS verdict and profile
-  URL. M2 publication has not started.
+- **M1 is complete** (1.21.1 verified). **M3 is complete** (6 Fabric
+  versions: 1.16.5, 1.18.2, 1.19.2, 1.20.1, 1.21.1, 1.21.4 — all
+  hash-consistency verified; server-boot verification pending for 5 new
+  versions). **M2 is in progress** (1.21.1 export artifacts produced; 5
+  new version exports and platform submission pending).
+- The pack is now multi-version: each version lives in
+  `packs/<version>/` with its own `pack.toml`, `index.toml`, and
+  `mods/`. Root-level docs (this file, Decision.md, README.md, etc.) are
+  repo documentation, not modpack content.
 - Repo: https://github.com/DurdeuVlad/heaphammer-diagnostics-pack (private).
 - Sole maintainer: dwurdy (Vlad Durdeu).
 
@@ -22,9 +26,10 @@ Entry point for any AI agent (or human) picking up this repo cold.
    reasoning behind each. **Do not silently re-derive or override any of
    these** — if one looks wrong once you're implementing, add a new dated
    entry explaining why, don't just change the behavior.
-3. [Milestones.md](Milestones.md) — what M1 and M2 actually are.
+3. [Milestones.md](Milestones.md) — what M1, M2, and M3 actually are.
 4. [Testing.md](Testing.md) — the concrete, run-it-yourself steps and pass/
-   fail conditions for M1, plus the acceptance checklist at the bottom.
+   fail conditions for M1, plus the M3 per-version mod matrix and
+   acceptance checklist.
 5. [README.md](README.md) — the user-facing quick-start (what a server
    admin actually types).
 6. [Collaboration.md](Collaboration.md) — ownership and contribution norms
@@ -32,9 +37,11 @@ Entry point for any AI agent (or human) picking up this repo cold.
 
 ## What you're being asked to do
 
-M1 is complete. Any follow-up agent should use Testing.md as the empirical
-record and must not start M2 publication or the open HeapHammer Modrinth-source
-follow-up unless explicitly asked.
+M1 and M3 are complete (hash-consistency verified for all 6 packs). The
+next step is server-boot verification for the 5 new versions (1.16.5,
+1.18.2, 1.19.2, 1.20.1, 1.21.4), then M2 publication. Do not start M2
+publication or the open HeapHammer Modrinth-source follow-up unless
+explicitly asked.
 
 ## Hard rules
 
@@ -43,8 +50,9 @@ follow-up unless explicitly asked.
   the server-boot and soak-test steps in Testing.md — a config that *should*
   work is not evidence it *does* work.
 - **Don't silently substitute mods.** The optimizer set (Lithium, FerriteCore,
-  Krypton — not Starlight, not C2ME) and the version target (Fabric 1.21.1
-  only) were deliberate, reasoned decisions (Decision.md D-003, D-004). If
+  Krypton — not Starlight, not C2ME) was a deliberate, reasoned decision
+  (Decision.md D-003). The version target was D-004 (1.21.1 only) but is now
+  superseded by the M3 expansion to 6 Fabric versions (1.16.5–1.21.4). If
   you hit a blocker with one of them, record a new Decision.md entry with
   the same rigor as the existing ones — don't quietly swap in an
   alternative.

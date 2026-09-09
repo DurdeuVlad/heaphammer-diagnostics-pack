@@ -1,0 +1,13 @@
+name = "HeapHammer"
+filename = "heaphammer-1.0.0-MC1.16.5-Fabric.jar"
+side = "both"
+
+[download]
+hash-format = "sha1"
+hash = "056964684b20d5452fed2e5ba9470d3181814100"
+mode = "metadata:curseforge"
+
+[update]
+[update.curseforge]
+file-id = 8840061
+project-id = 1687734
