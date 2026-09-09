@@ -2,6 +2,30 @@
 
 Durable decision log. Newest first. Status values: `decided`, `open`, `superseded`.
 
+## D-006: Pack license is LGPL-3.0-only, applied at platform project level
+
+- **Status:** decided
+- **Context:** Both CurseForge and Modrinth require a license on a
+  modpack project before publication. The pack's own license is distinct
+  from the licenses of the bundled mods (HeapHammer is LGPL-3.0; Spark,
+  Lithium, FerriteCore, Krypton, and Fabric API each carry their own).
+- **Decision:** the pack wrapper carries **LGPL-3.0-only**, matching the
+  sibling HeapHammer project's posture. Bundled third-party mods retain
+  their own licenses and are not re-licensed by the pack.
+- **Where it is applied:** the license is set on each platform's project
+  settings page during publication (M2-4 for CurseForge, M2-5 for
+  Modrinth). It is **not** a field in `pack.toml` — the packwiz pack
+  format (pack.toml spec) has no `license` property, and neither the
+  CurseForge `manifest.json` nor the Modrinth `modrinth.index.json`
+  carries a license field in the export manifest. Verified against the
+  packwiz pack.toml reference and both platform manifest schemas on
+  2026-09-09.
+- **Consequences:** contributors publishing the pack must set LGPL-3.0-only
+  in the CurseForge project creation form and the Modrinth project
+  creation form; it is not carried automatically by the packwiz export.
+- **Revisit if:** a platform adds manifest-level license support and it
+  becomes preferable to encode it in the export artifact directly.
+
 ## Implementation addendum — 2026-09-09 (Fabric runtime compatibility)
 
 - The first disposable-server boot failed before any mod could load because
@@ -135,10 +159,6 @@ Durable decision log. Newest first. Status values: `decided`, `open`, `supersede
 
 ## Open questions (not yet decided)
 
-- Final license posture for the pack as a whole (HeapHammer itself is
-  LGPL-3.0; Spark, Lithium, FerriteCore, and Krypton each carry their own
-  licenses as bundled third-party mods — the pack's own packwiz metadata
-  license has not been chosen yet).
 - Whether this pack becomes eligible for/joins the CurseForge Server
   Affiliation Program (that program currently only supports Modpacks, not
   Mods — this pack being a modpack is what would make HeapHammer-adjacent
